@@ -22,8 +22,7 @@ class App extends React.Component {
 
   componentDidMount() {
     this._isMounted = true
-    // fetch('https://my-json-server.typicode.com/mannu-arneja/blog-railsapi/db')
-    fetch('https://www.***REMOVED***.io/api/assessment/work_orders')
+    fetch('https://my-json-server.typicode.com/mannu-arneja/blog-railsapi/db')
       .then(results => {
         return results.json();
       }).then(data => {
@@ -47,7 +46,7 @@ class App extends React.Component {
 
     for (let order of this.state.workOrders) {
       if (!workers[order.workerId]) {
-        await fetch(`https://www.***REMOVED***.io/api/assessment/workers/${order.workerId}`)
+        await fetch(`https://my-json-server.typicode.com/mannu-arneja/blog-railsapi/workers/${order.workerId}`)
         .then(results => {
           return results.json();
         }).then(data => {
