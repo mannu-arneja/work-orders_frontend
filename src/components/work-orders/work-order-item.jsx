@@ -9,7 +9,10 @@ class WorkOrderItem extends React.Component {
     render() {
         return (
             <div className='work-order-item-container'>
-                <p>{this.props.order.id}</p>
+                <p>{this.props.order.name}</p>
+                <p>{this.props.order.description}</p>
+                <p>{this.props.order.workerId}</p>
+                <p>{this.props.order.deadline}</p>
             </div>
         )
     }
