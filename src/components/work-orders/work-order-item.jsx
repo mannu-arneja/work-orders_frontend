@@ -13,6 +13,7 @@ class WorkOrderItem extends React.Component {
                 <p>{this.props.order.description}</p>
                 <p>{this.props.order.workerId}</p>
                 <p>{this.props.order.deadline}</p>
+                <span>{this.props.worker.name}</span>
             </div>
         )
     }

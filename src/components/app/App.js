@@ -27,27 +27,31 @@ class App extends React.Component {
         return results.json();
       }).then(data => {
         let workOrdersArr = data.orders;
-        let workerIds = workOrdersArr.map(order => order.workerId)
         this.setState({
           workOrders: workOrdersArr,
         }, ()=> {
-          this.populateWorkers(workerIds);
+          this.populateWorkers();
         });
       })
   }
 
-  populateWorkers = async (ids) => {
+  populateWorkers = async () => {
     let workers = {};
 
-    console.log(ids)
-    // this.state.workOrders.forEach(order => {
-    //   fetch(`https://www.***REMOVED***.io/api/assessment/workers/${order.workerId}`)
-    //   .then(results => {
-    //     return results.json();
-    //   }).then(data => {
-    //     workers[data.id] = data;
-    //   })
-    // })
+    for (let order of this.state.workOrders) {
+      if (!workers[order.workerId]) {
+        await fetch(`https://www.***REMOVED***.io/api/assessment/workers/${order.workerId}`)
+        .then(results => {
+          return results.json();
+        }).then(data => {
+          workers[order.workerId] = data.worker
+        })
+      }
+    }
+    this.setState({
+      workers: workers,
+    })
+
   }
 
   handleFilterTextChange(filterText) {
@@ -76,6 +80,7 @@ class App extends React.Component {
           />
           <WorkOrders 
             orders={this.state.workOrders}
+            workers={this.state.workers}
             filterText={this.state.filterText}
             sortDeadline={this.state.sortDeadline}
           />
