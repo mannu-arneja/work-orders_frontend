@@ -19,6 +19,8 @@
     padding: 5px 20px;
     border-radius: 14px;
     border: 1px solid #E76F51;
+    outline-style: none;
+    box-sizing: border-box;
 }
 
 ::placeholder {
@@ -30,8 +32,8 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    width: 300px;
     color: #E76F51;
+    font-size: 19px;
 }
 
 .switch {
@@ -39,6 +41,7 @@
   display: inline-block;
   width: 100px;
   height: 34px;
+  margin: 0 10px;
 }
 
 /* Hide default HTML checkbox */

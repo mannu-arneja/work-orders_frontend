@@ -3,9 +3,6 @@ import './work-orders.css';
 import WorkOrderItem from './work-order-item';
 
 class WorkOrders extends React.Component {
-    constructor(props) {
-        super(props)
-    }
 
     componentDidUpdate() {
         this.fetched = true
@@ -17,7 +14,7 @@ class WorkOrders extends React.Component {
         if (this.fetched) {
             const workOrderArr = this.props.orders;
             const workersObj = this.props.workers;
-            const filterText = this.props.filterText;
+            const filterText = this.props.filterText.toLowerCase().trim();
             const sortDeadlineLatest = this.props.sortDeadlineLatest;
             items = [];
 
@@ -26,19 +23,18 @@ class WorkOrders extends React.Component {
             })
 
             workOrderArr.forEach(order => {
-                if (workersObj[order.workerId].name.indexOf(filterText) === -1) {
+                let curWorker = workersObj[order.workerId]
+                if (curWorker.name.toLowerCase().indexOf(filterText) === -1) {
                     return;
                 }
                 items.push(
                     <WorkOrderItem 
                         key={`order-${order.id}`} 
                         order={order}
-                        worker={workersObj[order.workerId]}
+                        worker={curWorker}
                     />
-                )
-                
+                ) 
             })
-
         }
         return(
             <div className='work-orders-container'>

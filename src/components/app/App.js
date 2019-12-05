@@ -1,10 +1,11 @@
 import React from 'react';
-import logo from '../../assets/images/logo.svg';
 import './app.css';
 import SearchBar from '../search-bar/search-bar';
 import WorkOrders from '../work-orders/work-orders';
 
 class App extends React.Component {
+  _isMounted = false;
+
   constructor(props) {
     super(props);
     this.state = {
@@ -20,19 +21,25 @@ class App extends React.Component {
   };
 
   componentDidMount() {
-
-    // fetch('https://www.***REMOVED***.io/api/assessment/work_orders')
-    fetch('https://my-json-server.typicode.com/mannu-arneja/blog-railsapi/db')
+    this._isMounted = true
+    // fetch('https://my-json-server.typicode.com/mannu-arneja/blog-railsapi/db')
+    fetch('https://www.***REMOVED***.io/api/assessment/work_orders')
       .then(results => {
         return results.json();
       }).then(data => {
-        let workOrdersArr = data.orders;
-        this.setState({
-          workOrders: workOrdersArr,
-        }, ()=> {
-          this.populateWorkers();
-        });
+        if (this._isMounted) {
+            let workOrdersArr = data.orders;
+            this.setState({
+              workOrders: workOrdersArr,
+            }, ()=> {
+              this.populateWorkers();
+            });
+        }
       })
+  }
+
+  componentWillUnmount() {
+    this._isMounted = false;
   }
 
   populateWorkers = async () => {
@@ -48,10 +55,11 @@ class App extends React.Component {
         })
       }
     }
-    this.setState({
-      workers: workers,
-    })
-
+    if (this._isMounted) {
+      this.setState({
+        workers: workers,
+      })
+    }
   }
 
   handleFilterTextChange(filterText) {
@@ -67,8 +75,6 @@ class App extends React.Component {
   }
   
   render() {
-      // console.log("state", this.state.workers)
-
     return (
       <div className="App">
         <header className="App-header">
