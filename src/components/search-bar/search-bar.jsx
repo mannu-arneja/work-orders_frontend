@@ -8,9 +8,9 @@ class SearchBar extends React.Component {
         return (
             <form>
                 <input id="name-input" type="text" placeholder='Filter by worker name...'/>
-                <label class="switch">
+                <label className="switch">
                     <input id="deadline-input" type="checkbox"/>
-                    <span class="slider round"></span>
+                    <span className="slider round"></span>
                 </label>
             </form>
         )
