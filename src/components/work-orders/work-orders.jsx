@@ -8,9 +8,15 @@ class WorkOrders extends React.Component {
     }
 
     render() {
+        let workOrderArr = this.props.orders;
+        let items = workOrderArr.map(order => {
+            return (
+                <WorkOrderItem key={`order-${order.id}`} order={order} />
+            )
+        })
         return(
             <div className='work-orders-container'>
-                <WorkOrderItem />
+                {items}
             </div>
         )
     }
