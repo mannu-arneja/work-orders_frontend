@@ -13,18 +13,17 @@ class WorkOrders extends React.Component {
 
     render() {
         let items
-        // const filterText = this.props.filterText;
-        // const sortDeadline = this.props.sortDeadline;
-        // let workOrderArr = [];
-        // this.props.orders.forEach(order => {
-        //     if ()
-        // })
+
         if (this.fetched) {
             const workOrderArr = this.props.orders;
             const workersObj = this.props.workers;
             const filterText = this.props.filterText;
-            const sortDeadline = this.props.sortDeadline;
+            const sortDeadlineLatest = this.props.sortDeadlineLatest;
             items = [];
+
+            workOrderArr.sort((a,b) => {
+                return sortDeadlineLatest ? b.deadline - a.deadline : a.deadline - b.deadline 
+            })
 
             workOrderArr.forEach(order => {
                 if (workersObj[order.workerId].name.indexOf(filterText) === -1) {
@@ -39,16 +38,6 @@ class WorkOrders extends React.Component {
                 )
                 
             })
-            // this.items = workOrderArr.map(order => {
-            //     return (
-            //         <WorkOrderItem 
-            //             key={`order-${order.id}`} 
-            //             order={order}
-            //             worker={workersObj[`${order.workerId}`]}
-            //         />
-            //     )
-            // })
-
 
         }
         return(

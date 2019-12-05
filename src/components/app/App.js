@@ -82,7 +82,7 @@ class App extends React.Component {
             orders={this.state.workOrders}
             workers={this.state.workers}
             filterText={this.state.filterText}
-            sortDeadline={this.state.sortDeadline}
+            sortDeadlineLatest={this.state.sortDeadlineLatest}
           />
         </header>
       </div>
